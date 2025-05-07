@@ -67,6 +67,9 @@ sysinfo.txt
 *.app
 *.exe
 
+# No Vim swap files
+*.swp
+
 # Crashlytics generated file
 crashlytics-build.properties
 

@@ -12,6 +12,7 @@ public class CameraMovement : MonoBehaviour
 	[SerializeField] private float zoomSmooth = 5f;
 	[SerializeField] private float zoomCurrent = 8f;
 	[SerializeField] private float rotationSpeed = 100f;
+	[SerializeField] private float rotationSmooth = 0.5f;
 	[SerializeField] private float camRotationXMin = 0f;
 	[SerializeField] private float camRotationXMax = 20f;
 
@@ -75,25 +76,22 @@ public class CameraMovement : MonoBehaviour
 				// Rotate only on the Y-axis (add to the rotation) and keep X
 				// and Z unchanged
 				currentRotation.y += rotationAroundY;
-				// Apply the modified rotation back to the object
-				transform.rotation = Quaternion.Euler(currentRotation);
 
-				// If there is more mouse movement on the Y-axis, rotate around
-				// X-axis and Z-axis (down-to-up)
+			// If there is more mouse movement on the Y-axis, rotate around
+			// X-axis and Z-axis (down-to-up)
 			} else if (Mathf.Abs(mouseY) > Mathf.Abs(mouseX) + 0.1f) {
+				// Rotate both X and Z-axis, one in the opposite direction
+				// to get the camera going "above"
+				currentRotation.x += rotationAroundX;  
+				currentRotation.x = Mathf.Clamp(currentRotation.x,
+						camRotationXMin, camRotationXMax);
 
-				// If we are still inside the limits, rotate 
-				if (potentialRotationX >= camRotationXMin && 
-						potentialRotationX <= camRotationXMax) {
-
-					// Rotate both X and Z-axis, one in the opposite direction
-					// to get the camera going "above"
-					currentRotation.x += rotationAroundX;  
-					currentRotation.z -= rotationAroundX; 
-
-					transform.rotation = Quaternion.Euler(currentRotation);
-				}
+				// Geometry math magic
+				currentRotation.z = (360f - currentRotation.x) % 360f;
 			}
+			// Smoothly interpolate to the new rotation
+			Quaternion targetRotation = Quaternion.Euler(currentRotation);
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmooth);
 		}
 	}
 	
