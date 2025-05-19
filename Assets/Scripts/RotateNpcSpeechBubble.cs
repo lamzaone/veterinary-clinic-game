@@ -16,6 +16,7 @@ public class RotateNpcSpeechBubble : MonoBehaviour
 		if (cam != null)
 		{
 			// Make the speech bubble face the camera
+			transform.forward = cam.transform.forward;
 			transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward,
 					cam.transform.rotation * Vector3.up);
 		}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 635489408248725092}
   - component: {fileID: 6156918244543440246}
   - component: {fileID: 5208151988536137425}
-  - component: {fileID: 8727894543083496281}
+  - component: {fileID: 5565403883637777168}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8727894543083496281
+--- !u!114 &5565403883637777168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

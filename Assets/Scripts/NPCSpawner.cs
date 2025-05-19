@@ -9,8 +9,8 @@ public class NPCSpawner : MonoBehaviour
     public float spawnInterval = 2f;
 
     [Header("Spawn Area")]
-    public Vector3 spawnAreaCenter = new Vector3(20, 0, 8);
-    public Vector3 spawnAreaSize = new Vector3(10, 0, 10);
+    public Vector3 spawnAreaCenter = new Vector3(27.5f, 0, 0);
+    public Vector3 spawnAreaSize = new Vector3(14f, 0, 19f);
     public float minDistanceBetweenNPCs = 1.5f;
 
     private List<Vector3> usedPositions = new List<Vector3>();
@@ -46,6 +46,14 @@ public class NPCSpawner : MonoBehaviour
         {
             follower.player = player;
         }
+
+		// 🔽 NEW: Set the camera for the Canvas in the NPC
+		Camera mainCam = Camera.main;
+		Canvas canvas = npc.GetComponentInChildren<Canvas>(true); // 'true' includes inactive objects
+		if (canvas != null && mainCam != null && canvas.renderMode != RenderMode.WorldSpace)
+		{
+			canvas.worldCamera = mainCam;
+		}
 
 		AssignRandomColorToChildren(npc);
 
@@ -100,10 +108,18 @@ public class NPCSpawner : MonoBehaviour
         return GetRandomPosition();
     }
 
-    Vector3 GetRandomPosition()
-    {
-        float x = Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f);
-        float z = Random.Range(-spawnAreaSize.z / 2f, spawnAreaSize.z / 2f);
-        return spawnAreaCenter + new Vector3(x, 0f, z);
-    }
+	Vector3 GetRandomPosition()
+	{
+		float x = Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f);
+		float z = Random.Range(-spawnAreaSize.z / 2f, spawnAreaSize.z / 2f);
+		float y = spawnAreaCenter.y; // or terrain sample
+
+		return new Vector3(spawnAreaCenter.x + x, y, spawnAreaCenter.z + z);
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireCube(spawnAreaCenter, spawnAreaSize);
+	}
 }

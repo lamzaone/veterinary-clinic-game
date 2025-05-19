@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 	private Camera cam;  // Reference to the main camera
     private NavMeshAgent agent;  // NavMeshAgent on the player
 
-	[SerializeField] private float stopDistanceFromNPC = 2f;
+	[SerializeField] private float stopDistanceFromNPC = 5f;
 	[SerializeField] private float rotationSpeed = 5f;
 
 	private Vector3? lookTarget = null;
