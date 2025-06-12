@@ -1,102 +1,108 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-	private Camera cam;  // Reference to the main camera
-    private NavMeshAgent agent;  // NavMeshAgent on the player
+    private Camera cam;
+    private NavMeshAgent agent;
 
-	[SerializeField] private float stopDistanceFromNPC = 5f;
-	[SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float stoppingDistance = 1f;
+    [SerializeField] private float interactionDistance = 3f;
 
-	private Vector3? lookTarget = null;
-	private GameObject targetNPC = null;
+    private Vector3? lookTarget = null;
+    private NPCBehavior pendingNPC = null;
+    private Coroutine selectionCoroutine = null;
 
-    // Start is called before the first frame update
     void Start()
     {
-		agent = GetComponent<NavMeshAgent>();
-		if (cam == null)
-			cam = Camera.main;
+        agent = GetComponent<NavMeshAgent>();
+        agent.stoppingDistance = stoppingDistance;
+        cam = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
-		MoveOnMouseClick();
-		SmoothRotate();
-
-		// Automatically interact when close to target NPC
-		if (targetNPC != null && !agent.pathPending && agent.remainingDistance <= stopDistanceFromNPC)
-		{
-			InteractWithNPC(targetNPC);
-			targetNPC = null;
-		}
+        HandleClick();
+        SmoothRotate();
     }
 
-	void MoveOnMouseClick()
-	{
-        if (Input.GetMouseButtonDown(0)) { // Left click
+    void HandleClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.CompareTag("NPC"))
+                {
+                    // Get the NPCBehavior from parent of collider (handles multi-child colliders)
+                    NPCBehavior npc = hit.collider.GetComponentInParent<NPCBehavior>();
+                    if (npc != null)
+                    {
+                        pendingNPC = npc;
 
-            if (Physics.Raycast(ray, out hit)) {
+                        // Calculate approach position (a bit away from NPC, so player doesn't overlap)
+                        Vector3 directionFromNPC = (transform.position - npc.transform.position).normalized;
+                        Vector3 approachPos = npc.transform.position + directionFromNPC * (stoppingDistance + 0.1f);
 
-				Transform target = hit.transform;
+                        lookTarget = approachPos;
+                        agent.SetDestination(approachPos);
 
-				if (target.CompareTag("Ground")) {
-					agent.SetDestination(hit.point);
-					lookTarget = hit.point;
-					targetNPC = null; // Clear NPC target
-				} else if (target.CompareTag("NPC")) {
-					float distanceToNPC = Vector3.Distance(transform.position, target.position);
+                        // Start or restart coroutine to wait for close enough
+                        if (selectionCoroutine != null)
+                            StopCoroutine(selectionCoroutine);
+                        selectionCoroutine = StartCoroutine(WaitUntilCloseThenSelect());
+                    }
+                }
+                else if (hit.collider.CompareTag("Ground"))
+                {
+                    // Cancel any pending NPC selection on ground click
+                    pendingNPC = null;
+                    if (selectionCoroutine != null)
+                    {
+                        StopCoroutine(selectionCoroutine);
+                        selectionCoroutine = null;
+                    }
 
-					if (distanceToNPC <= stopDistanceFromNPC) {
-						// Already close — interact immediately
-						InteractWithNPC(target.gameObject);
-						targetNPC = null;
-					}
-					else {
-						// Too far — move to NPC and interact on arrival
-						Vector3 directionToNPC = (transform.position - target.position);
-						Vector3 destination = target.position + directionToNPC * stopDistanceFromNPC;
-
-						NavMeshHit navHit;
-						if (NavMesh.SamplePosition(destination, out navHit, 1.0f, NavMesh.AllAreas)) {
-							agent.SetDestination(navHit.position);
-							lookTarget = target.position;
-							targetNPC = target.gameObject; // Store for later interaction
-						}
-					}
-				}
+                    lookTarget = hit.point;
+                    agent.SetDestination(hit.point);
+                }
             }
-        }        
-	}
-	void SmoothRotate()
-	{
-		if (lookTarget.HasValue) {
-			Vector3 direction = (lookTarget.Value - transform.position).normalized;
-			direction.y = 0; // Prevent tilting up/down
+        }
+    }
 
-			if (direction.magnitude > 0.1f) {
-				Quaternion targetRotation = Quaternion.LookRotation(direction);
-				transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-			}
-		}
-	}
+    IEnumerator WaitUntilCloseThenSelect()
+    {
+        while (pendingNPC != null)
+        {
+            float distance = Vector3.Distance(transform.position, pendingNPC.transform.position);
+            if (distance <= interactionDistance)
+            {
+                GameManager.Instance.TrySelectClient(pendingNPC);
+                Debug.Log($"Selected NPC: {pendingNPC.name}");
 
-	void InteractWithNPC(GameObject npcObject)
-	{
-		NPC npcScript = npcObject.GetComponent<NPC>();
-		if (npcScript != null)
-		{
-			npcScript.ShowSpeechBubble();
-		}
-		else
-		{
-			Debug.LogWarning("No NPC script found on: " + npcObject.name);
-		}
-	}
+                pendingNPC = null;
+                selectionCoroutine = null;
+                yield break;
+            }
+            yield return null;
+        }
+    }
+
+    void SmoothRotate()
+    {
+        if (lookTarget.HasValue)
+        {
+            Vector3 direction = (lookTarget.Value - transform.position).normalized;
+            direction.y = 0;
+            if (direction.magnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+        }
+    }
 }
+

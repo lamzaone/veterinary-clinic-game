@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-	// Player to follow and rotate around
-	[SerializeField] private Transform player; 
-	// Camera with ortographic perspective
-	private Camera cam; 
 
 	[Header("Zoom Settings")]
 	[SerializeField] private float zoomSpeed = 25f;
@@ -23,8 +19,13 @@ public class CameraMovement : MonoBehaviour
 	[SerializeField] private float rotationDuration = 0.4f;
 	[SerializeField] private float bounceOvershoot = 10f;
 
+	// Player to follow and rotate around
+	[SerializeField] private Transform player; 
 	// Function to interpolate
 	[SerializeField] private AnimationCurve bounceCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+	// Camera with ortographic perspective
+	private Camera cam; 
 	private bool isRotating = false;
 	// Timer for function; use rotationDuration if you want to make animation faster/slower
 	private float rotationTimer = 0f;

@@ -139,7 +139,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &154041052
 BoxCollider:
@@ -244,7 +244,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &160573702
 BoxCollider:
@@ -349,7 +349,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &180702584
 BoxCollider:
@@ -454,7 +454,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &306879827
 BoxCollider:
@@ -587,7 +587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c6482b25c3c517c89b9fbfd210c2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 564321888}
   zoomSpeed: 25
   zoomMin: 5
   zoomMax: 12
@@ -598,6 +597,7 @@ MonoBehaviour:
   inputThreshold: 0.5
   rotationDuration: 0.4
   bounceOvershoot: 10
+  player: {fileID: 564321888}
   bounceCurve:
     serializedVersion: 2
     m_Curve:
@@ -745,7 +745,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &467836800
 MeshCollider:
@@ -854,7 +854,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_UseGeometry: 0
-  m_DefaultArea: 0
+  m_DefaultArea: 3
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
@@ -877,12 +877,13 @@ GameObject:
   - component: {fileID: 482098523}
   - component: {fileID: 482098522}
   - component: {fileID: 482098521}
+  - component: {fileID: 482098525}
   m_Layer: 0
   m_Name: WaitRoomFloor
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &482098521
 MeshCollider:
@@ -971,6 +972,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &482098525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482098520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 36ec55d7c25f158adb5869b873a5e8e2, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &564321884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,8 +1125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c446147a69e4133baec05bb36fe4912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistanceFromNPC: 2
   rotationSpeed: 5
+  stoppingDistance: 1
+  interactionDistance: 3
 --- !u!195 &564321890
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1115,7 +1148,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 7
   m_ObstacleAvoidanceType: 4
 --- !u!1 &705507993
 GameObject:
@@ -1228,7 +1261,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &788414768
 BoxCollider:
@@ -1333,7 +1366,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &895925329
 BoxCollider:
@@ -1542,12 +1575,13 @@ GameObject:
   - component: {fileID: 987951452}
   - component: {fileID: 987951451}
   - component: {fileID: 987951450}
+  - component: {fileID: 987951454}
   m_Layer: 0
   m_Name: LabRoomFloor
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &987951450
 MeshCollider:
@@ -1636,6 +1670,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &987951454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987951449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 59e1317edc81a31608b76394623f658e, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1027248736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1653,7 +1718,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1027248737
 BoxCollider:
@@ -1741,6 +1806,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1201489002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201489003}
+  - component: {fileID: 1201489004}
+  m_Layer: 0
+  m_Name: GameManagerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1201489003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201489002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.75929, y: 11.969463, z: -9.656223}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201489004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201489002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f681fe1b36e10dc5394378cc07ee8582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxClients: 1
+  playerScore: 0
+  currentClient: {fileID: 0}
 --- !u!1 &1368941671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1863,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1368941673}
   - component: {fileID: 1368941672}
-  - component: {fileID: 1368941674}
   m_Layer: 0
   m_Name: NPCSpawnController
   m_TagString: Untagged
@@ -1771,12 +1882,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3b90a52516c6ad9a8b930965ccd7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcPrefab: {fileID: 8720893193820871077, guid: 8f12d2c0053ea5df5a329f650e1fa24f, type: 3}
+  npcPrefab: {fileID: 8224304665199549929, guid: 8f12d2c0053ea5df5a329f650e1fa24f, type: 3}
   numberToSpawn: 5
   spawnInterval: 2
-  spawnAreaCenter: {x: 27.5, y: 0, z: 0}
-  spawnAreaSize: {x: 14, y: 0, z: 19}
+  spawnAreaCenter: {x: 80, y: 0, z: 0}
+  spawnAreaSize: {x: 20, y: 0, z: 20}
   minDistanceBetweenNPCs: 1.5
+  waitingRoomCenter: {x: 27.5, y: 0, z: 0}
+  waitingRoomSize: {x: 10, y: 0, z: 10}
+  minDistanceInWaitingRoom: 2
 --- !u!4 &1368941673
 Transform:
   m_ObjectHideFlags: 0
@@ -1792,18 +1906,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1368941674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368941671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0bd8d3801a95b76b989c9f967f95cdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1526154748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,7 +1923,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1526154749
 BoxCollider:
@@ -1926,7 +2028,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1607795300
 BoxCollider:
@@ -2031,7 +2133,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1617842189
 BoxCollider:
@@ -2136,7 +2238,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1648088691
 BoxCollider:
@@ -2310,7 +2412,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &1716074516
 MeshCollider:
@@ -2428,7 +2530,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: ca91844a8775579e7b1a34cd8cd47791, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1892095574
 GameObject:
@@ -2447,7 +2549,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1892095575
 BoxCollider:
@@ -2552,7 +2654,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &2054754610
 BoxCollider:
@@ -2652,12 +2754,13 @@ GameObject:
   - component: {fileID: 2089042841}
   - component: {fileID: 2089042840}
   - component: {fileID: 2089042839}
+  - component: {fileID: 2089042843}
   m_Layer: 0
   m_Name: RadRoomFloor
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &2089042839
 MeshCollider:
@@ -2746,6 +2849,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2089042843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089042838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 2c7442baed6d92bf7a9ea8eb5a2e9c0d, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &2124396913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,7 +2897,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &2124396914
 BoxCollider:
@@ -2868,7 +3002,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &2140324069
 BoxCollider:
@@ -2985,3 +3119,4 @@ SceneRoots:
   - {fileID: 2140324072}
   - {fileID: 1027248740}
   - {fileID: 1607795303}
+  - {fileID: 1201489003}
