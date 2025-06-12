@@ -22,10 +22,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    /// <summary>
-    /// Called when player tries to select an NPC (e.g. after clicking near it)
-    /// Returns true if selection succeeded
-    /// </summary>
 	public bool TrySelectClient(NPCBehavior npc)
 	{
 		if (npc == null) return false;
@@ -99,4 +95,3 @@ public class GameManager : MonoBehaviour
         Debug.Log("Lost points because client left without being helped!");
     }
 }
-

@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float stoppingDistance = 1.6f;
-    [SerializeField] private float interactionDistance = 3f;
+    // [SerializeField] private float interactionDistance = 3f;
 
     private Vector3? lookTarget = null;
     private IInteractable pendingInteractable = null;
@@ -97,4 +97,3 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
-

@@ -36,4 +36,3 @@ public class AnimalFollower : MonoBehaviour
         agent.ResetPath();
     }
 }
-

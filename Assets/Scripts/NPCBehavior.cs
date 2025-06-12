@@ -179,4 +179,3 @@ public class NPCBehavior : MonoBehaviour, IInteractable
 	}
 
 }
-
