@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class NPCBehavior : MonoBehaviour
+public class NPCBehavior : MonoBehaviour, IInteractable 
 {
     [Header("Positions")]
     public Vector3 spawnPoint;           // Where NPC starts and returns to despawn
@@ -18,6 +18,9 @@ public class NPCBehavior : MonoBehaviour
 
     [HideInInspector] public bool caseSolved = false;
 
+    private AnimalFollower animalFollower;
+    private Transform playerTransform;
+
     private bool isSelected = false;
     private bool isLeaving = false;
 
@@ -28,11 +31,27 @@ public class NPCBehavior : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        if (agent == null)
-        {
+        if (agent == null) {
             Debug.LogError("NPCBehavior requires a NavMeshAgent component.");
         }
+
     }
+
+	void Start()
+	{
+		// Find the animal follower in children
+		animalFollower = GetComponentInChildren<AnimalFollower>();
+		// Find player
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		if (player != null) {
+			playerTransform = player.transform;
+		}
+		//  Start by following the NPC (its master)
+		if (animalFollower != null)
+		{
+			animalFollower.Follow(transform, 1.5f);
+		}
+	}
 
     // Call this to start the NPC walking in from spawn to waiting room
     public void StartWalkingIn()
@@ -99,6 +118,7 @@ public class NPCBehavior : MonoBehaviour
         if (!isSelected) return;
 
         isSelected = false;
+		Deselect();
         Leave(false);
     }
 
@@ -128,5 +148,35 @@ public class NPCBehavior : MonoBehaviour
         // Destroy the NPC GameObject (despawn)
         Destroy(gameObject);
     }
+
+    public void Select()
+    {
+        if (animalFollower != null && playerTransform != null)
+        {
+            animalFollower.Follow(playerTransform, 1.5f);
+            Debug.Log($"{name}'s animal is now following the player.");
+        }
+    }
+
+    public void Deselect()
+    {
+        if (animalFollower != null)
+        {
+            animalFollower.Follow(transform, 1.5f); // follow master again
+            Debug.Log($"{name}'s animal is returning to the NPC.");
+        }
+    }
+
+	public Vector3 GetApproachPosition(Transform playerTransform, float stoppingDistance)
+	{
+		return transform.position;
+	}
+
+	public void Interact()
+	{
+		GameManager.Instance.TrySelectClient(this);
+		Debug.Log($"{name} NPC selected.");
+	}
+
 }
 

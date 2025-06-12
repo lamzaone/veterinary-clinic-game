@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 		if (npc.TrySelect())
 		{
 			currentClient = npc;
+			currentClient.Select();
 			Debug.Log("Selected NPC: " + npc.name); // Feedback here
 			return true;
 		}
