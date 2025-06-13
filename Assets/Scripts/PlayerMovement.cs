@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private IInteractable pendingInteractable = null;
     private Coroutine interactionCoroutine = null;
 
+    public bool inputEnabled = true;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -24,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+		if (!inputEnabled) return;
         HandleClick();
         SmoothRotate();
     }
@@ -32,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {

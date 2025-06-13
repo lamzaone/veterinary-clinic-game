@@ -4,6 +4,7 @@ public class BookCubeBehavior : MonoBehaviour, IInteractable
 {
     [Header("References")]
     public DiseaseBookUI bookUI;
+	public PlayerMovement playerMovement;
 
     private DiseaseDatabase diseaseDatabase;
 
@@ -32,14 +33,15 @@ public class BookCubeBehavior : MonoBehaviour, IInteractable
         if (!isBookOpen)
         {
 			bookUI.OpenBook(diseaseDatabase, this);
+			playerMovement.inputEnabled = false;
             isBookOpen = true;
             Debug.Log("Book opened.");
         }
     }
 
-    public void CloseBook()
+    public void NotifyBookClosed()
     {
-        bookUI.CloseBook();
         isBookOpen = false;
+		playerMovement.inputEnabled = true;
     }
 }
